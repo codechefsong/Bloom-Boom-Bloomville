@@ -1,23 +1,27 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "./Garden.sol";
+
 contract Bloomville {
   uint256 public totalGardens = 0;
-  Garden[] public gardens;
+  UserGarden[] public userGardens;
 
-  struct Garden {
+  struct UserGarden {
     uint256 id;
     address owner;
+    address contractAdress;
   }
 
   constructor() {}
 
-  function getGardens() public view returns (Garden[] memory){
-    return gardens;
+  function getGardens() public view returns (UserGarden[] memory){
+    return userGardens;
   }
 
   function buyGarden() public {
-    gardens.push(Garden(totalGardens, msg.sender));
+    Garden newGarden = new Garden(msg.sender);
+    userGardens.push(UserGarden(totalGardens, msg.sender, address(newGarden)));
     totalGardens++;
   }
 }
