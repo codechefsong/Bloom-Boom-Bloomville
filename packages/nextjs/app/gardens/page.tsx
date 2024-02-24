@@ -1,9 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
 const Gardens: NextPage = () => {
+  const router = useRouter();
+
   const { data: gardens } = useScaffoldContractRead({
     contractName: "Bloomville",
     functionName: "getGardens",
@@ -27,13 +30,14 @@ const Gardens: NextPage = () => {
       >
         Buy Garden
       </button>
-      <div className="flex justify-center px-4 md:px-0 mt-5">
+      <div className="flex flex-col justify-center px-4 md:px-0 mt-5">
         {gardens?.map(g => (
           <div
             key={g.id.toString()}
             className="w-20 h-20 border border-gray-30 flex items-center justify-center font-bold mr-2 mb-2 cursor-pointer bg-green-200"
+            onClick={() => router.push("/garden/" + g.contractAdress)}
           >
-            {g.id.toString()}
+            {g.contractAdress}
           </div>
         ))}
       </div>
