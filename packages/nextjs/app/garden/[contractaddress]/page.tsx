@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
 
-const MatchRoom = ({ params }: { params: { contractaddress: string } }) => {
+const Garden = ({ params }: { params: { contractaddress: string } }) => {
   const router = useRouter();
   const { address } = useAccount();
 
@@ -20,6 +20,13 @@ const MatchRoom = ({ params }: { params: { contractaddress: string } }) => {
     functionName: "getGrid",
   });
 
+  const { writeAsync: plantSeed } = useContractWrite({
+    address: params.contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "plantSeed",
+    args: [BigInt(0)],
+  });
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
@@ -30,6 +37,7 @@ const MatchRoom = ({ params }: { params: { contractaddress: string } }) => {
             <div
               key={index}
               className="w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative bg-white"
+              onClick={() => plantSeed()}
             >
               {item.content}
             </div>
@@ -45,4 +53,4 @@ const MatchRoom = ({ params }: { params: { contractaddress: string } }) => {
   );
 };
 
-export default MatchRoom;
+export default Garden;
