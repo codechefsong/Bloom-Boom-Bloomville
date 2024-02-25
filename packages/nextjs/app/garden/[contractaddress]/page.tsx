@@ -1,30 +1,37 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useAccount } from "wagmi";
-
-const gridData = [
-  {
-    data: "T",
-  },
-];
+import { useAccount, useContractRead } from "wagmi";
+import DeployedContracts from "~~/contracts/deployedContracts";
 
 const MatchRoom = ({ params }: { params: { contractaddress: string } }) => {
   const router = useRouter();
   const { address } = useAccount();
 
+  const { data: owner } = useContractRead({
+    address: params.contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "owner",
+  });
+
+  const { data: gridData } = useContractRead({
+    address: params.contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "getGrid",
+  });
+
   return (
     <div className="flex flex-col items-center">
-      <h2 className="mt-4 text-3xl">{params.contractaddress}</h2>
+      <h2 className="mt-4 text-xl">Own by {owner}</h2>
       <p>{address}</p>
       <div className="flex flex-wrap" style={{ width: "400px" }}>
         {gridData &&
           gridData.map((item, index) => (
             <div
               key={index}
-              className="w-16 h-16 border border-gray-300 flex items-center justify-center font-bold relative bg-white"
+              className="w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative bg-white"
             >
-              {item.data}
+              {item.content}
             </div>
           ))}
       </div>
