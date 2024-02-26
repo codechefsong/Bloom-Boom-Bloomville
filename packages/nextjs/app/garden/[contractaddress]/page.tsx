@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import Plant from "./_components/Plant";
+import { useAccount, useContractRead } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
 
 const Garden = ({ params }: { params: { contractaddress: string } }) => {
@@ -20,13 +21,6 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     functionName: "getGrid",
   });
 
-  const { writeAsync: plantSeed } = useContractWrite({
-    address: params.contractaddress,
-    abi: DeployedContracts[31337].Garden.abi,
-    functionName: "plantSeed",
-    args: [BigInt(0)],
-  });
-
   return (
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
@@ -34,13 +28,7 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
       <div className="flex flex-wrap" style={{ width: "400px" }}>
         {gridData &&
           gridData.map((item, index) => (
-            <div
-              key={index}
-              className="w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative bg-white"
-              onClick={() => plantSeed()}
-            >
-              {item.content}
-            </div>
+            <Plant key={index} id={index} contractaddress={params.contractaddress} item={item} />
           ))}
       </div>
       <button
