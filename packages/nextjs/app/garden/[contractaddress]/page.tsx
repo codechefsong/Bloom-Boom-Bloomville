@@ -13,12 +13,14 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     address: params.contractaddress,
     abi: DeployedContracts[31337].Garden.abi,
     functionName: "owner",
+    watch: true,
   });
 
   const { data: gridData } = useContractRead({
     address: params.contractaddress,
     abi: DeployedContracts[31337].Garden.abi,
     functionName: "getGrid",
+    watch: true,
   });
 
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import { useContractWrite } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
 import { notification } from "~~/utils/scaffold-eth";
