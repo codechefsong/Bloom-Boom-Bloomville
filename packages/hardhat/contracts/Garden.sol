@@ -1,9 +1,12 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "./BloomPoint.sol";
+
 contract Garden {
   address public immutable owner;
   Box[] public grid;
+  BloomPoint public bloomPoint;
 
   struct Box {
     uint256 index;
@@ -12,8 +15,9 @@ contract Garden {
     string content;
   }
 
-  constructor(address _owner) {
+  constructor(address _owner, address _tokenAddress) {
     owner = _owner;
+    bloomPoint = BloomPoint(_tokenAddress);
 
     uint256 id = 0;
 

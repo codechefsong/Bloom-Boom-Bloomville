@@ -6,6 +6,7 @@ import "./Garden.sol";
 contract Bloomville {
   uint256 public totalGardens = 0;
   UserGarden[] public userGardens;
+  address bloomPoint;
 
   struct UserGarden {
     uint256 id;
@@ -13,14 +14,16 @@ contract Bloomville {
     address contractAdress;
   }
 
-  constructor() {}
+  constructor(address _tokenAddress) {
+    bloomPoint = _tokenAddress;
+  }
 
   function getGardens() public view returns (UserGarden[] memory){
     return userGardens;
   }
 
   function buyGarden() public {
-    Garden newGarden = new Garden(msg.sender);
+    Garden newGarden = new Garden(msg.sender, bloomPoint);
     userGardens.push(UserGarden(totalGardens, msg.sender, address(newGarden)));
     totalGardens++;
   }
