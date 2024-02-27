@@ -34,6 +34,10 @@ contract Garden {
     grid[index].content = "0";
   }
 
+  function waterSeed(uint256 index) public {
+    grid[index].content = "G";
+  }
+
   function getGrid() public view returns (Box[] memory){
     return grid;
   }

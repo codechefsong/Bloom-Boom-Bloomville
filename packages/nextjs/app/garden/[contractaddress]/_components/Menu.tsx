@@ -7,11 +7,12 @@ import { notification } from "~~/utils/scaffold-eth";
 type MenuInfo = {
   id: number;
   contractaddress: string;
+  content: string;
   isOpen: any;
   onClose: any;
 };
 
-const Menu = ({ id, contractaddress, isOpen, onClose }: MenuInfo) => {
+const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
   const { writeAsync: plantSeed } = useContractWrite({
     address: contractaddress,
     abi: DeployedContracts[31337].Garden.abi,
@@ -19,9 +20,21 @@ const Menu = ({ id, contractaddress, isOpen, onClose }: MenuInfo) => {
     args: [BigInt(id)],
   });
 
+  const { writeAsync: waterSeed } = useContractWrite({
+    address: contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "waterSeed",
+    args: [BigInt(id)],
+  });
+
   const plant = async () => {
     await plantSeed();
     notification.success("Seed is planted");
+  };
+
+  const water = async () => {
+    await waterSeed();
+    notification.success("Water the plant");
   };
   return (
     <>
@@ -29,9 +42,16 @@ const Menu = ({ id, contractaddress, isOpen, onClose }: MenuInfo) => {
         {isOpen && (
           <div className="absolute z-10 -mt-7 ml-6 bg-white rounded shadow-md">
             <ul>
-              <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => plant()}>
-                Plant
-              </li>
+              {content === "-" && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => plant()}>
+                  Plant
+                </li>
+              )}
+              {content === "0" && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
+                  Water
+                </li>
+              )}
               <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>
                 Cancel
               </li>

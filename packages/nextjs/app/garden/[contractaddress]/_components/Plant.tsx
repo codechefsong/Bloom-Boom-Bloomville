@@ -26,6 +26,7 @@ const Plant = ({ id, contractaddress, item }: ItemInfo) => {
         <Menu
           id={id}
           contractaddress={contractaddress}
+          content={item.content}
           isOpen={isDropdownOpen}
           onClose={() => setIsDropdownOpen(false)}
         />
