@@ -507,6 +507,11 @@ const deployedContracts = {
                   name: "startdate",
                   type: "uint256",
                 },
+                {
+                  internalType: "uint256",
+                  name: "waterdate",
+                  type: "uint256",
+                },
               ],
               internalType: "struct Garden.Box[]",
               name: "",
@@ -551,6 +556,11 @@ const deployedContracts = {
               name: "startdate",
               type: "uint256",
             },
+            {
+              internalType: "uint256",
+              name: "waterdate",
+              type: "uint256",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -592,6 +602,19 @@ const deployedContracts = {
           name: "waterSeed",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "waterTime",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {

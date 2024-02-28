@@ -59,7 +59,7 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
                   Plant
                 </li>
               )}
-              {content === "0" && (
+              {content !== "-" && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
                   Water
                 </li>

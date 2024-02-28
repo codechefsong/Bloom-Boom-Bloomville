@@ -7,6 +7,7 @@ contract Garden {
   address public immutable owner;
   Box[] public grid;
   BloomPoint public bloomPoint;
+  uint256 public immutable waterTime = 100;
 
   struct Box {
     uint256 index;
@@ -14,6 +15,7 @@ contract Garden {
     string typeGrid;
     string content;
     uint256 startdate;
+    uint256 waterdate;
   }
 
   constructor(address _owner, address _tokenAddress) {
@@ -24,7 +26,7 @@ contract Garden {
 
     for (uint256 row = 0; row < 5; row++) {
       for (uint256 col = 0; col < 5; col++) {
-        grid.push(Box(id, id, "base", "-", 0));
+        grid.push(Box(id, id, "base", "-", 0, 0));
         id++;
       }
     }
@@ -46,6 +48,7 @@ contract Garden {
   function waterSeed(uint256 index) public {
     grid[index].content = "G";
     grid[index].startdate = block.timestamp;
+    grid[index].waterdate = block.timestamp + waterTime;
   }
 
   function collectPoints(uint256 index) public {
