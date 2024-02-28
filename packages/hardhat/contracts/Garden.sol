@@ -13,6 +13,7 @@ contract Garden {
     uint256 id;
     string typeGrid;
     string content;
+    uint256 startdate;
   }
 
   constructor(address _owner, address _tokenAddress) {
@@ -23,7 +24,7 @@ contract Garden {
 
     for (uint256 row = 0; row < 5; row++) {
       for (uint256 col = 0; col < 5; col++) {
-        grid.push(Box(id, id, "base", "-"));
+        grid.push(Box(id, id, "base", "-", 0));
         id++;
       }
     }
@@ -34,16 +35,23 @@ contract Garden {
     _;
   }
 
+  function getGrid() public view returns (Box[] memory){
+    return grid;
+  }
+
   function plantSeed(uint256 index) public {
     grid[index].content = "0";
   }
 
   function waterSeed(uint256 index) public {
     grid[index].content = "G";
+    grid[index].startdate = block.timestamp;
   }
 
-  function getGrid() public view returns (Box[] memory){
-    return grid;
+  function collectPoints(uint256 index) public {
+    uint256 amount = block.timestamp - grid[index].startdate;
+    bloomPoint.mint(msg.sender, amount);
+    grid[index].startdate = block.timestamp;
   }
 
   function withdraw() isOwner public {

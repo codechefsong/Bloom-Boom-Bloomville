@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     BloomPoint: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
       abi: [
         {
           inputs: [],
@@ -336,7 +336,7 @@ const deployedContracts = {
       },
     },
     Bloomville: {
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
           inputs: [
@@ -432,7 +432,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Garden: {
-      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
       abi: [
         {
           inputs: [
@@ -464,6 +464,19 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "collectPoints",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "getGrid",
           outputs: [
@@ -488,6 +501,11 @@ const deployedContracts = {
                   internalType: "string",
                   name: "content",
                   type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "startdate",
+                  type: "uint256",
                 },
               ],
               internalType: "struct Garden.Box[]",
@@ -527,6 +545,11 @@ const deployedContracts = {
               internalType: "string",
               name: "content",
               type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "startdate",
+              type: "uint256",
             },
           ],
           stateMutability: "view",

@@ -27,6 +27,13 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
     args: [BigInt(id)],
   });
 
+  const { writeAsync: collectPoints } = useContractWrite({
+    address: contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "collectPoints",
+    args: [BigInt(id)],
+  });
+
   const plant = async () => {
     await plantSeed();
     notification.success("Seed is planted");
@@ -35,6 +42,11 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
   const water = async () => {
     await waterSeed();
     notification.success("Water the plant");
+  };
+
+  const collect = async () => {
+    await collectPoints();
+    notification.success("Points collected");
   };
   return (
     <>
@@ -50,6 +62,11 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
               {content === "0" && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
                   Water
+                </li>
+              )}
+              {content === "G" && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => collect()}>
+                  Collect
                 </li>
               )}
               <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>

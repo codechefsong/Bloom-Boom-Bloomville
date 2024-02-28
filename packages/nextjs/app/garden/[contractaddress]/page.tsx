@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Plant from "./_components/Plant";
 import { useAccount, useContractRead } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
+import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 
 const Garden = ({ params }: { params: { contractaddress: string } }) => {
   const router = useRouter();
@@ -23,10 +24,16 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     watch: true,
   });
 
+  const { data: pointAmount } = useScaffoldContractRead({
+    contractName: "BloomPoint",
+    functionName: "balanceOf",
+    args: [address],
+  });
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
-      <p>{address}</p>
+      <p className="text-2xl">{pointAmount?.toString()} Bloom Points</p>
       <div className="flex flex-wrap" style={{ width: "400px" }}>
         {gridData &&
           gridData.map((item, index) => (
