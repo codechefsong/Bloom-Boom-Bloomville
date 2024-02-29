@@ -52,9 +52,21 @@ contract Garden {
   }
 
   function collectPoints(uint256 index) public {
+    require(owner == msg.sender, "You do not own this garden");
+
     uint256 amount = block.timestamp - grid[index].startdate;
     bloomPoint.mint(msg.sender, amount);
     grid[index].startdate = block.timestamp;
+  }
+
+  function stealPlant(uint256 index) public {
+    require(block.timestamp > grid[index].waterdate, "You cannot steal this plant yet");
+
+    uint256 amount = block.timestamp - grid[index].startdate;
+    bloomPoint.mint(msg.sender, amount);
+    grid[index].startdate = 0;
+    grid[index].waterdate = 0;
+    grid[index].content = "-";
   }
 
   function withdraw() isOwner public {

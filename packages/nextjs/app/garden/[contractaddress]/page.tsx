@@ -49,6 +49,8 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
               contractaddress={params.contractaddress}
               item={item}
               currentTime={getCurrentTime()}
+              owner={owner || ""}
+              useraddress={address || ""}
             />
           ))}
       </div>

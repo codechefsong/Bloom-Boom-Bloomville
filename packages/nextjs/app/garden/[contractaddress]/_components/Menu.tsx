@@ -2,7 +2,7 @@
 
 import { useContractWrite } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
-import { notification } from "~~/utils/scaffold-eth";
+import { getParsedError, notification } from "~~/utils/scaffold-eth";
 
 type MenuInfo = {
   id: number;
@@ -10,9 +10,11 @@ type MenuInfo = {
   content: string;
   isOpen: any;
   onClose: any;
+  owner: string;
+  useraddress: string;
 };
 
-const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
+const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddress }: MenuInfo) => {
   const { writeAsync: plantSeed } = useContractWrite({
     address: contractaddress,
     abi: DeployedContracts[31337].Garden.abi,
@@ -34,6 +36,13 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
     args: [BigInt(id)],
   });
 
+  const { writeAsync: stealPlant } = useContractWrite({
+    address: contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "stealPlant",
+    args: [BigInt(id)],
+  });
+
   const plant = async () => {
     await plantSeed();
     notification.success("Seed is planted");
@@ -45,9 +54,25 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
   };
 
   const collect = async () => {
-    await collectPoints();
-    notification.success("Points collected");
+    try {
+      await collectPoints();
+      notification.success("Points collected");
+    } catch (error) {
+      const message = getParsedError(error);
+      notification.error(message);
+    }
   };
+
+  const steal = async () => {
+    try {
+      await stealPlant();
+      notification.success("Plant is taken");
+    } catch (error) {
+      const message = getParsedError(error);
+      notification.error(message);
+    }
+  };
+
   return (
     <>
       <div className="relative">
@@ -64,9 +89,14 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose }: MenuInfo) => {
                   Water
                 </li>
               )}
-              {content === "G" && (
+              {content === "G" && owner === useraddress && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => collect()}>
                   Collect
+                </li>
+              )}
+              {content === "G" && owner !== useraddress && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => steal()}>
+                  Steal
                 </li>
               )}
               <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>

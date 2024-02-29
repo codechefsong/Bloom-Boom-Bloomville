@@ -8,9 +8,11 @@ type ItemInfo = {
   contractaddress: string;
   item: any;
   currentTime: number;
+  owner: string;
+  useraddress: string;
 };
 
-const Plant = ({ id, contractaddress, item, currentTime }: ItemInfo) => {
+const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: ItemInfo) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleToggleDropdown = () => {
@@ -32,6 +34,8 @@ const Plant = ({ id, contractaddress, item, currentTime }: ItemInfo) => {
           content={item.content}
           isOpen={isDropdownOpen}
           onClose={() => setIsDropdownOpen(false)}
+          owner={owner}
+          useraddress={useraddress}
         />
       </div>
     </>
