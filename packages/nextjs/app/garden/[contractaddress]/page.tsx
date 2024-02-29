@@ -30,6 +30,12 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     args: [address],
   });
 
+  const getCurrentTime = () => {
+    const currentDate = new Date();
+    const unixTime = currentDate.getTime() / 1000;
+    return unixTime;
+  };
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
@@ -37,7 +43,13 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
       <div className="flex flex-wrap" style={{ width: "400px" }}>
         {gridData &&
           gridData.map((item, index) => (
-            <Plant key={index} id={index} contractaddress={params.contractaddress} item={item} />
+            <Plant
+              key={index}
+              id={index}
+              contractaddress={params.contractaddress}
+              item={item}
+              currentTime={getCurrentTime()}
+            />
           ))}
       </div>
       <button

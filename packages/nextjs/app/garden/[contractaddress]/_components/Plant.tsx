@@ -7,9 +7,10 @@ type ItemInfo = {
   id: number;
   contractaddress: string;
   item: any;
+  currentTime: number;
 };
 
-const Plant = ({ id, contractaddress, item }: ItemInfo) => {
+const Plant = ({ id, contractaddress, item, currentTime }: ItemInfo) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleToggleDropdown = () => {
@@ -19,7 +20,9 @@ const Plant = ({ id, contractaddress, item }: ItemInfo) => {
   return (
     <>
       <div
-        className="w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative bg-white cursor-pointer"
+        className={`w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relativecursor-pointer ${
+          currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-white"
+        }`}
         onClick={handleToggleDropdown}
       >
         {item.content}
