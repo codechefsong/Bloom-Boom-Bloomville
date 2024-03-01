@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { NextPage } from "next";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
@@ -30,14 +31,14 @@ const Gardens: NextPage = () => {
       >
         Buy Garden
       </button>
-      <div className="flex flex-col justify-center px-4 md:px-0 mt-5">
+      <div className="flex justify-center px-4 md:px-0 mt-5">
         {gardens?.map(g => (
           <div
             key={g.id.toString()}
             className="w-20 h-20 border border-gray-30 flex items-center justify-center font-bold mr-2 mb-2 cursor-pointer bg-green-200"
             onClick={() => router.push("/garden/" + g.contractAdress)}
           >
-            {g.contractAdress}
+            {g.url ? <Image src={g.url} alt="Garden" width={50} height={50} /> : <p>{g.id.toString()}</p>}
           </div>
         ))}
       </div>

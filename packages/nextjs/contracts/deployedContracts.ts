@@ -357,6 +357,25 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "contractaddressToUsergarden",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [],
           name: "getGardens",
           outputs: [
@@ -377,6 +396,11 @@ const deployedContracts = {
                   name: "contractAdress",
                   type: "address",
                 },
+                {
+                  internalType: "string",
+                  name: "url",
+                  type: "string",
+                },
               ],
               internalType: "struct Bloomville.UserGarden[]",
               name: "",
@@ -384,6 +408,24 @@ const deployedContracts = {
             },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "contractaddress",
+              type: "address",
+            },
+            {
+              internalType: "string",
+              name: "newurl",
+              type: "string",
+            },
+          ],
+          name: "setURL",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -424,6 +466,11 @@ const deployedContracts = {
               name: "contractAdress",
               type: "address",
             },
+            {
+              internalType: "string",
+              name: "url",
+              type: "string",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -432,7 +479,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Garden: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           inputs: [
