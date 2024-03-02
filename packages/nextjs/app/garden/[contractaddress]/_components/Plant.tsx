@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Menu from "./Menu";
+import Image from "next/image";
 
 type ItemInfo = {
   id: number;
@@ -27,7 +28,8 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
         }`}
         onClick={handleToggleDropdown}
       >
-        {item.content}
+        {item.content === "0" && <Image alt="Seed" width={25} height={25} src="/seed.png" />}
+        {item.content === "G" && <Image alt="Seed" width={50} height={50} src="/flower.png" />}
         <Menu
           id={id}
           contractaddress={contractaddress}
