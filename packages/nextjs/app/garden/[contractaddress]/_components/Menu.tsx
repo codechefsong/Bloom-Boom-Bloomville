@@ -43,6 +43,13 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     args: [BigInt(id)],
   });
 
+  const { writeAsync: removeDisappear } = useContractWrite({
+    address: contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "removeDisappear",
+    args: [BigInt(id)],
+  });
+
   const plant = async () => {
     await plantSeed();
     notification.success("Seed is planted");
@@ -73,6 +80,16 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     }
   };
 
+  const clear = async () => {
+    try {
+      await removeDisappear();
+      notification.success("Area is cleared");
+    } catch (error) {
+      const message = getParsedError(error);
+      notification.error(message);
+    }
+  };
+
   return (
     <>
       <div className="relative">
@@ -84,7 +101,7 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
                   Plant
                 </li>
               )}
-              {content !== "-" && (
+              {(content === "0" || content === "G") && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
                   Water
                 </li>
@@ -97,6 +114,11 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
               {content === "G" && owner !== useraddress && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => steal()}>
                   Steal
+                </li>
+              )}
+              {content === "x" && owner === useraddress && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => clear()}>
+                  Clear
                 </li>
               )}
               <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Menu from "./Menu";
 import Image from "next/image";
+import Menu from "./Menu";
 
 type ItemInfo = {
   id: number;
@@ -29,7 +29,8 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
         onClick={handleToggleDropdown}
       >
         {item.content === "0" && <Image alt="Seed" width={25} height={25} src="/seed.png" />}
-        {item.content === "G" && <Image alt="Seed" width={50} height={50} src="/flower.png" />}
+        {item.content === "G" && <Image alt="Flower" width={50} height={50} src="/flower.png" />}
+        {item.content === "x" && <Image alt="Empty" width={50} height={50} src="/disappear.png" />}
         <Menu
           id={id}
           contractaddress={contractaddress}

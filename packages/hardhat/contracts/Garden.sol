@@ -66,6 +66,11 @@ contract Garden {
     bloomPoint.mint(msg.sender, amount);
     grid[index].startdate = 0;
     grid[index].waterdate = 0;
+    grid[index].content = "x";
+  }
+
+  function removeDisappear(uint256 index) public {
+    require(owner == msg.sender, "You do not own this garden");
     grid[index].content = "-";
   }
 

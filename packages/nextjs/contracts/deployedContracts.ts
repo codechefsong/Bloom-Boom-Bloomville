@@ -479,7 +479,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     Garden: {
-      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
       abi: [
         {
           inputs: [
@@ -634,6 +634,19 @@ const deployedContracts = {
             },
           ],
           name: "plantSeed",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "removeDisappear",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
