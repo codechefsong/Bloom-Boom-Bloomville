@@ -6,9 +6,11 @@ import "./BloomPoint.sol";
 contract Garden {
   address public immutable owner;
   Box[] public grid;
+  uint256 public totalSpace = 0;
   BloomPoint public bloomPoint;
   uint256 public immutable waterTime = 100;
-  uint256[] levelCost = [0, 100, 200, 10000, 20000];
+  uint256 public immutable expandCost = 50;
+  uint256[] levelCost = [0, 50, 200, 10000, 20000];
 
   struct Box {
     uint256 index;
@@ -24,13 +26,9 @@ contract Garden {
     owner = _owner;
     bloomPoint = BloomPoint(_tokenAddress);
 
-    uint256 id = 0;
-
-    for (uint256 row = 0; row < 5; row++) {
-      for (uint256 col = 0; col < 5; col++) {
-        grid.push(Box(id, id, "base", "-", 0, 0, 0));
-        id++;
-      }
+    for (uint256 i = 0; i < 5; i++) {
+      grid.push(Box(totalSpace, totalSpace, "base", "-", 0, 0, 0));
+      totalSpace++;
     }
   }
 
@@ -41,6 +39,16 @@ contract Garden {
 
   function getGrid() public view returns (Box[] memory){
     return grid;
+  }
+
+  function expandGrid() public {
+    require(totalSpace < 25, "No space to expand");
+    require(bloomPoint.balanceOf(msg.sender) >= expandCost, "You need more points");
+
+    for (uint256 i = 0; i < 5; i++) {
+      grid.push(Box(totalSpace, totalSpace, "base", "-", 0, 0, 0));
+      totalSpace++;
+    }
   }
 
   function plantSeed(uint256 index) public {

@@ -2,9 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import Plant from "./_components/Plant";
-import { useAccount, useContractRead } from "wagmi";
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
+import { getParsedError, notification } from "~~/utils/scaffold-eth";
 
 const Garden = ({ params }: { params: { contractaddress: string } }) => {
   const router = useRouter();
@@ -30,10 +31,26 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     args: [address],
   });
 
+  const { writeAsync: expandGrid } = useContractWrite({
+    address: params.contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "expandGrid",
+  });
+
   const getCurrentTime = () => {
     const currentDate = new Date();
     const unixTime = currentDate.getTime() / 1000;
     return unixTime;
+  };
+
+  const expand = async () => {
+    try {
+      await expandGrid();
+      notification.success("Garden expanded");
+    } catch (error) {
+      const message = getParsedError(error);
+      notification.error(message);
+    }
   };
 
   return (
@@ -54,6 +71,12 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
             />
           ))}
       </div>
+      <button
+        className="py-2 px-16 mb-1 mt-3 bg-green-400 rounded baseline hover:bg-green-300 disabled:opacity-50"
+        onClick={() => expand()}
+      >
+        Expand
+      </button>
       <button
         className="py-2 px-16 mb-1 mt-3 bg-gray-300 rounded baseline hover:bg-gray-200 disabled:opacity-50"
         onClick={() => router.push("/gardens")}
