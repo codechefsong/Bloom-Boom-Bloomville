@@ -23,7 +23,7 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
   return (
     <>
       <div
-        className={`w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relativecursor-pointer ${
+        className={`w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative cursor-pointer ${
           currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-white"
         }`}
         onClick={handleToggleDropdown}
@@ -31,6 +31,7 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
         {item.content === "0" && <Image alt="Seed" width={25} height={25} src="/seed.png" />}
         {item.content === "G" && <Image alt="Flower" width={50} height={50} src="/flower.png" />}
         {item.content === "x" && <Image alt="Empty" width={50} height={50} src="/disappear.png" />}
+        {Number(item.level) > 0 && <p className="absolute top-[40px]">Lv {Number(item.level)}</p>}
         <Menu
           id={id}
           contractaddress={contractaddress}

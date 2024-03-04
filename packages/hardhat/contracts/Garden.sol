@@ -16,6 +16,7 @@ contract Garden {
     string content;
     uint256 startdate;
     uint256 waterdate;
+    uint256 level;
   }
 
   constructor(address _owner, address _tokenAddress) {
@@ -26,7 +27,7 @@ contract Garden {
 
     for (uint256 row = 0; row < 5; row++) {
       for (uint256 col = 0; col < 5; col++) {
-        grid.push(Box(id, id, "base", "-", 0, 0));
+        grid.push(Box(id, id, "base", "-", 0, 0, 0));
         id++;
       }
     }
@@ -43,6 +44,7 @@ contract Garden {
 
   function plantSeed(uint256 index) public {
     grid[index].content = "0";
+    grid[index].level = 1;
   }
 
   function waterSeed(uint256 index) public {
@@ -55,7 +57,8 @@ contract Garden {
     require(owner == msg.sender, "You do not own this garden");
 
     uint256 amount = block.timestamp - grid[index].startdate;
-    bloomPoint.mint(msg.sender, amount);
+    uint256 currentLevel = grid[index].level;
+    bloomPoint.mint(msg.sender, currentLevel * amount);
     grid[index].startdate = block.timestamp;
   }
 
@@ -63,7 +66,9 @@ contract Garden {
     require(block.timestamp > grid[index].waterdate, "You cannot steal this plant yet");
 
     uint256 amount = block.timestamp - grid[index].startdate;
-    bloomPoint.mint(msg.sender, amount);
+    uint256 currentLevel = grid[index].level;
+
+    bloomPoint.mint(msg.sender, currentLevel * amount);
     grid[index].startdate = 0;
     grid[index].waterdate = 0;
     grid[index].content = "x";
@@ -72,6 +77,7 @@ contract Garden {
   function removeDisappear(uint256 index) public {
     require(owner == msg.sender, "You do not own this garden");
     grid[index].content = "-";
+    grid[index].level = 0;
   }
 
   function withdraw() isOwner public {
