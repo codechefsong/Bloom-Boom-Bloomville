@@ -8,6 +8,7 @@ contract Garden {
   Box[] public grid;
   BloomPoint public bloomPoint;
   uint256 public immutable waterTime = 100;
+  uint256[] levelCost = [0, 100, 200, 10000, 20000];
 
   struct Box {
     uint256 index;
@@ -78,6 +79,14 @@ contract Garden {
     require(owner == msg.sender, "You do not own this garden");
     grid[index].content = "-";
     grid[index].level = 0;
+  }
+
+  function levelUpPlant(uint256 index) public {
+    require(grid[index].level < 4, "Your plant is at max level");
+    uint256 cost = levelCost[grid[index].level];
+    require(bloomPoint.balanceOf(msg.sender) >= cost, "You need more points");
+    bloomPoint.burn(msg.sender, cost);
+    grid[index].level += 1;
   }
 
   function withdraw() isOwner public {

@@ -50,6 +50,13 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     args: [BigInt(id)],
   });
 
+  const { writeAsync: levelUpPlant } = useContractWrite({
+    address: contractaddress,
+    abi: DeployedContracts[31337].Garden.abi,
+    functionName: "levelUpPlant",
+    args: [BigInt(id)],
+  });
+
   const plant = async () => {
     await plantSeed();
     notification.success("Seed is planted");
@@ -74,6 +81,16 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     try {
       await stealPlant();
       notification.success("Plant is taken");
+    } catch (error) {
+      const message = getParsedError(error);
+      notification.error(message);
+    }
+  };
+
+  const upgrade = async () => {
+    try {
+      await levelUpPlant();
+      notification.success("Plant is level up");
     } catch (error) {
       const message = getParsedError(error);
       notification.error(message);
@@ -119,6 +136,11 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
               {content === "x" && owner === useraddress && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => clear()}>
                   Clear
+                </li>
+              )}
+              {content === "G" && owner === useraddress && (
+                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => upgrade()}>
+                  Upgrade
                 </li>
               )}
               <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>

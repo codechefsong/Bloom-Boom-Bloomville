@@ -23,8 +23,8 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
   return (
     <>
       <div
-        className={`w-20 h-20 border border-gray-300 flex items-center justify-center font-bold relative cursor-pointer ${
-          currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-white"
+        className={`w-20 h-20 border border-lime-700 flex items-center justify-center font-bold relative cursor-pointer ${
+          currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-green-100"
         }`}
         onClick={handleToggleDropdown}
       >
