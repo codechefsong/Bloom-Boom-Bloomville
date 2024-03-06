@@ -57,7 +57,14 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
       <p className="text-2xl">{pointAmount?.toString()} Bloom Points</p>
-      <div className="flex flex-wrap" style={{ width: "400px" }}>
+      <div
+        className="flex flex-wrap"
+        style={{
+          width: "460px",
+          border: "30px solid transparent",
+          borderImage: "url('/floor1.png') 25% round",
+        }}
+      >
         {gridData &&
           gridData.map((item, index) => (
             <Plant
