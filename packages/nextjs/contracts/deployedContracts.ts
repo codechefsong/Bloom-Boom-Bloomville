@@ -336,10 +336,15 @@ const deployedContracts = {
       },
     },
     Bloomville: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
       abi: [
         {
           inputs: [
+            {
+              internalType: "address",
+              name: "_owner",
+              type: "address",
+            },
             {
               internalType: "address",
               name: "_tokenAddress",
@@ -348,6 +353,38 @@ const deployedContracts = {
           ],
           stateMutability: "nonpayable",
           type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "address",
+              name: "buyer",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amountOfETH",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "amountOfTokens",
+              type: "uint256",
+            },
+          ],
+          name: "BuyTokens",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "buyBloomPoint",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
         },
         {
           inputs: [],
@@ -411,6 +448,19 @@ const deployedContracts = {
           type: "function",
         },
         {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
           inputs: [
             {
               internalType: "address",
@@ -426,6 +476,19 @@ const deployedContracts = {
           name: "setURL",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "tokensPerEth",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -475,11 +538,18 @@ const deployedContracts = {
           stateMutability: "view",
           type: "function",
         },
+        {
+          inputs: [],
+          name: "withdraw",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
       ],
       inheritedFunctions: {},
     },
     Garden: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
       abi: [
         {
           inputs: [
