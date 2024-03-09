@@ -3,9 +3,11 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "./BloomPoint.sol";
 import "./Garden.sol";
+import "./GardenNFT.sol";
 
 contract Bloomville {
   BloomPoint bloomPoint;
+  GardenNFT gardenNFT;
 
   address public immutable owner;
   uint256 public constant tokensPerEth = 1000000000;
@@ -23,9 +25,10 @@ contract Bloomville {
 
   event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
-  constructor(address _owner, address _tokenAddress) {
+  constructor(address _owner, address _tokenAddress, address _nftAddress) {
     owner = _owner;
     bloomPoint = BloomPoint(_tokenAddress);
+    gardenNFT = GardenNFT(_nftAddress);
   }
 
   modifier isOwner() {
@@ -42,6 +45,7 @@ contract Bloomville {
     userGardens.push(UserGarden(totalGardens, msg.sender, address(newGarden), ""));
     contractaddressToUsergarden[address(newGarden)] = totalGardens;
     totalGardens++;
+    gardenNFT.mint(msg.sender);
   }
 
   function buyBloomPoint() public payable {
@@ -53,6 +57,7 @@ contract Bloomville {
   function setURL(address contractaddress, string calldata newurl) public {
     uint256 currentId = contractaddressToUsergarden[contractaddress];
     userGardens[currentId].url = newurl;
+    gardenNFT.setURL(currentId, newurl);
   }
 
   function withdraw() isOwner public {
