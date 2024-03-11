@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Plant from "./_components/Plant";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import { Address } from "~~/components/scaffold-eth";
 import DeployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { getParsedError, notification } from "~~/utils/scaffold-eth";
@@ -60,7 +61,10 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="mt-4 text-xl">Own by {owner}</h2>
+      <div className="flex items-center mt-4">
+        <h1 className="my-0 mr-3 text-2xl">Own by</h1>
+        <Address address={owner} />
+      </div>
       <div className="flex items-center">
         <p className="text-2xl mr-3">{pointAmount?.toString()}</p>
         <Image src="/assets/bloompoints.png" width={30} height={25} alt="Bloom Points" />

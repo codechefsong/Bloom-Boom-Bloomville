@@ -111,7 +111,7 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     <>
       <div className="relative">
         {isOpen && (
-          <div className="absolute z-10 -mt-7 ml-6 bg-white rounded shadow-md">
+          <div className="absolute z-20 -mt-7 ml-6 bg-white rounded shadow-md">
             <ul>
               {content === "-" && (
                 <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => plant()}>

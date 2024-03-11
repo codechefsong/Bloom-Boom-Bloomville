@@ -13,7 +13,7 @@ const Home: NextPage = () => {
             <span className="block text-2xl mb-2">Welcome to</span>
             <span className="block text-4xl font-bold">Bloom Boom Bloomville</span>
           </h1>
-          <Image className="ml-8" alt="Game" width={400} height={350} src="/game.png" />
+          <Image className="ml-8" alt="Game" width={400} height={350} src="/assets/game.png" />
           <p className="text-center text-lg mb-0">Build gardens, plant and grow flowers, and earn bloom points</p>
           <div className="flex justify-center mb-2">
             <Link
