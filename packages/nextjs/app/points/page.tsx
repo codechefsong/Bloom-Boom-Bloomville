@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { NextPage } from "next";
 import { formatEther, parseEther } from "viem";
 import { useAccount } from "wagmi";
@@ -39,7 +40,10 @@ const BloomPoint: NextPage = () => {
         </div>
       </div>
       <div className="flex flex-col items-center space-y-4 bg-base-100 shadow-lg shadow-secondary border-8 border-secondary rounded-xl p-6 mt-8 w-full max-w-lg">
-        <div className="text-xl">Buy Bloom Points</div>
+        <div className="flex items-center">
+          <h2 className="text-xl my-0 mr-3">Buy Bloom Points</h2>
+          <Image src="/assets/bloompoints.png" width={30} height={25} alt="Bloom Points" />
+        </div>
         <div>{tokensPerEth?.toString() || 0} BP per ETH</div>
 
         <div className="w-full flex flex-col space-y-2">

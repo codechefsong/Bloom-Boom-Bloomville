@@ -24,9 +24,10 @@ const Gardens: NextPage = () => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-2xl mt-10 mb-2">Gardens</h2>
+      <div className="mt-10 mb-2"></div>
+      <Image className="ml-8" alt="Game" width={250} height={250} src="/assets/logosign.png" />
       <button
-        className="py-2 px-16 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+        className="mt-5 ml-5 py-2 px-16 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
         onClick={() => buyGarden()}
       >
         Buy Garden

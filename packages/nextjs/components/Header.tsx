@@ -99,12 +99,8 @@ export const Header = () => {
           )}
         </div>
         <Link href="/" passHref className="hidden lg:flex items-center gap-2 ml-4 mr-6 shrink-0">
-          <div className="flex relative w-10 h-10">
-            <Image alt="Logo" className="cursor-pointer" fill src="/flower.png" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold leading-tight">Bloom Boom</span>
-            <span className="text-xs">Bloomville</span>
+          <div className="flex relative w-32 h-10">
+            <Image alt="Logo" className="cursor-pointer" fill src="/assets/logo.png" />
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap menu menu-horizontal px-1 gap-2">

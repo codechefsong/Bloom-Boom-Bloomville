@@ -4,7 +4,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Menu from "./Menu";
 
-const flowerImages = ["/flower.png", "/flowerlv1.png", "/flowerlv2.png", "/flowerlv3.png", "/flowerlv3.png"];
+const flowerImages = [
+  "/assets/flowerLv1.png",
+  "/assets/flowerLv1.png",
+  "/assets/flowerLv2.png",
+  "/assets/flowerLv3.png",
+  "/flowerLv3.png",
+];
 
 type ItemInfo = {
   id: number;
@@ -25,15 +31,15 @@ const Plant = ({ id, contractaddress, item, currentTime, owner, useraddress }: I
   return (
     <>
       <div
-        className={`w-20 h-20 border border-lime-700 flex items-center justify-center font-bold relative cursor-pointer ${
-          currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-green-100"
+        className={`w-20 h-20 flex items-center justify-center font-bold relative cursor-pointer ${
+          currentTime > Number(item.waterdate) && Number(item.waterdate) !== 0 ? "bg-red-200" : "bg-transparent"
         }`}
         onClick={handleToggleDropdown}
       >
-        {item.content === "0" && <Image alt="Seed" width={25} height={25} src="/seed.png" />}
-        {item.content === "G" && <Image alt="Flower" width={60} height={60} src={flowerImages[item.level]} />}
+        {item.content === "0" && <Image alt="Seed" width={50} height={50} src="/assets/seed.png" />}
+        {item.content === "G" && <Image alt="Flower" width={50} height={50} src={flowerImages[item.level]} />}
         {item.content === "x" && <Image alt="Empty" width={50} height={50} src="/disappear.png" />}
-        {Number(item.level) > 0 && <p className="absolute top-[40px]">Lv {Number(item.level)}</p>}
+        {Number(item.level) > 0 && <p className="absolute top-[40px] text-white">Lv {Number(item.level)}</p>}
         <Menu
           id={id}
           contractaddress={contractaddress}

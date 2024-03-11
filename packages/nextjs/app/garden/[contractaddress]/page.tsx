@@ -1,11 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Plant from "./_components/Plant";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import DeployedContracts from "~~/contracts/deployedContracts";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
 import { getParsedError, notification } from "~~/utils/scaffold-eth";
+
+const gridMargin = ["0", "6px", "3.7px", "1.8px", "-0.5px", "-2.5px"];
 
 const Garden = ({ params }: { params: { contractaddress: string } }) => {
   const router = useRouter();
@@ -43,6 +46,8 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
     return unixTime;
   };
 
+  const gridRows = Array.from({ length: (gridData?.length || 0) / 5 });
+
   const expand = async () => {
     try {
       await expandGrid();
@@ -56,28 +61,39 @@ const Garden = ({ params }: { params: { contractaddress: string } }) => {
   return (
     <div className="flex flex-col items-center">
       <h2 className="mt-4 text-xl">Own by {owner}</h2>
-      <p className="text-2xl">{pointAmount?.toString()} Bloom Points</p>
-      <div
-        className="flex flex-wrap"
-        style={{
-          width: "460px",
-          border: "30px solid transparent",
-          borderImage: "url('/floor1.png') 25% round",
-        }}
-      >
-        {gridData &&
-          gridData.map((item, index) => (
-            <Plant
-              key={index}
-              id={index}
-              contractaddress={params.contractaddress}
-              item={item}
-              currentTime={getCurrentTime()}
-              owner={owner || ""}
-              useraddress={address || ""}
-            />
-          ))}
+      <div className="flex items-center">
+        <p className="text-2xl mr-3">{pointAmount?.toString()}</p>
+        <Image src="/assets/bloompoints.png" width={30} height={25} alt="Bloom Points" />
       </div>
+      <Image src="/assets/gridtop.png" alt="Garden Top" width={460} height={50} />
+      <div className="relative w-[460px]">
+        <div className="absolute">
+          {gridRows.map((item, index) => (
+            <Image key={index} src="/assets/gridmiddle.png" alt="Garden Middle" width={460} height={50} />
+          ))}
+        </div>
+        <div className="flex flex-wrap mt-[-8px] ml-[30px]">
+          {gridData &&
+            gridData.map((item, index) => (
+              <Plant
+                key={index}
+                id={index}
+                contractaddress={params.contractaddress}
+                item={item}
+                currentTime={getCurrentTime()}
+                owner={owner || ""}
+                useraddress={address || ""}
+              />
+            ))}
+        </div>
+      </div>
+      <Image
+        style={{ marginTop: `${gridMargin[(gridData?.length || 0) / 5]}` }}
+        src="/assets/gridbottom.png"
+        alt="Garden Bottom"
+        width={460}
+        height={50}
+      />
       <button
         className="py-2 px-16 mb-1 mt-3 bg-green-400 rounded baseline hover:bg-green-300 disabled:opacity-50"
         onClick={() => expand()}
