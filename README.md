@@ -1,7 +1,7 @@
 # Bloom Boom Bloomville
 An on-chain game where players build gardens, plant and grow flowers, and earn bloom points
 
-![Bloom Boom Bloomville](./packages/nextjs/public/game.png)
+![Bloom Boom Bloomville](./packages/nextjs/public/assets/game.png)
 
 ⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
 
@@ -64,3 +64,8 @@ yarn start
 ```
 
 Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
+
+## Artist/Designer
+Graphic assets, background images, and logos were created by Andy.
+
+https://app.buidlguidl.com/builders/0x51634D98FcCB1e9D64B6e7331c2872e98b33e9AC
