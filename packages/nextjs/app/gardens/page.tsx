@@ -23,7 +23,16 @@ const Gardens: NextPage = () => {
   });
 
   return (
-    <div className="flex flex-col items-center">
+    <div
+      className="flex flex-col items-center bg-cyan-200"
+      style={{
+        backgroundImage: "url('/assets/background2.jpg')",
+        backgroundSize: "contain",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "bottom",
+        height: "94vh",
+      }}
+    >
       <div className="mt-10 mb-2"></div>
       <Image className="ml-8" alt="Game" width={250} height={250} src="/assets/logosign.png" />
       <button

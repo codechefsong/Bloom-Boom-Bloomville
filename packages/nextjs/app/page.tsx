@@ -7,26 +7,40 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-10">
+      <div
+        className="flex items-center flex-col flex-grow pt-10 bg-cyan-200"
+        style={{
+          backgroundImage: "url('/assets/background1.jpg')",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "bottom",
+          height: "100vh",
+        }}
+      >
         <div className="px-5">
           <h1 className="text-center">
             <span className="block text-2xl mb-2">Welcome to</span>
             <span className="block text-4xl font-bold">Bloom Boom Bloomville</span>
           </h1>
           <Image className="ml-8" alt="Game" width={400} height={350} src="/assets/game.png" />
-          <p className="text-center text-lg mb-0">Build gardens, plant and grow flowers, and earn bloom points</p>
+          <p className="text-center text-lg mb-0 bg-green-300">
+            Build gardens, plant and grow flowers, and earn bloom points
+          </p>
           <div className="flex justify-center mb-2">
             <Link
               href="/gardens"
               passHref
-              className=" py-2 px-16 mb-1 mt-3 bg-green-500 rounded baseline hover:bg-green-400 disabled:opacity-50"
+              className="py-2 px-16 mb-1 mt-3 bg-[#4C2C0F] text-white rounded baseline hover:bg-lime-950 disabled:opacity-50"
             >
               See Garden
             </Link>
           </div>
         </div>
 
-        <div className="flex-grow bg-green-200 w-full mt-16 px-8 py-12">
+        <div
+          className="flex-grow text-white w-full mt-16 px-8 py-12"
+          style={{ backgroundImage: "url('/assets/background2.jpg')" }}
+        >
           <div className="text-center">
             <h2 className="mt-3 text-4xl mb-5">Gameplay</h2>
           </div>
