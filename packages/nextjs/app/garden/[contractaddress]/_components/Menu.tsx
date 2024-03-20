@@ -1,6 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useContractWrite } from "wagmi";
+import { ChevronDoubleUpIcon, ScissorsIcon, TrashIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import DeployedContracts from "~~/contracts/deployedContracts";
 import { getParsedError, notification } from "~~/utils/scaffold-eth";
 
@@ -111,40 +113,61 @@ const Menu = ({ id, contractaddress, content, isOpen, onClose, owner, useraddres
     <>
       <div className="relative">
         {isOpen && (
-          <div className="absolute z-20 -mt-7 ml-6 bg-white rounded shadow-md">
+          <div className="absolute z-20 -mt-7 ml-6 bg-white rounded shadow-md w-[150px]">
             <ul>
               {content === "-" && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => plant()}>
-                  Plant
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => plant()}>
+                  <div className="flex items-center">
+                    <Image src="/assets/seed.png" alt="Watering Can" width={30} height={30} />
+                    <p className="ml-3">Seed</p>
+                  </div>
                 </li>
               )}
               {(content === "0" || content === "G") && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
-                  Water
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => water()}>
+                  <div className="flex items-center">
+                    <Image src="/assets/wateringcan.png" alt="Watering Can" width={30} height={30} />
+                    <p className="ml-3">Water</p>
+                  </div>
                 </li>
               )}
               {content === "G" && owner === useraddress && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => collect()}>
-                  Collect
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => collect()}>
+                  <div className="flex items-center">
+                    <Image src="/assets/bloompoints.png" alt="Watering Can" width={30} height={30} />
+                    <p className="ml-3">Collect</p>
+                  </div>
                 </li>
               )}
               {content === "G" && owner !== useraddress && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => steal()}>
-                  Steal
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => steal()}>
+                  <div className="flex items-center">
+                    <ScissorsIcon width={30} height={30} />
+                    <p className="ml-3">Steal</p>
+                  </div>
                 </li>
               )}
               {content === "x" && owner === useraddress && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => clear()}>
-                  Clear
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => clear()}>
+                  <div className="flex items-center">
+                    <TrashIcon width={30} height={30} />
+                    <p className="ml-3">Clear</p>
+                  </div>
                 </li>
               )}
               {content === "G" && owner === useraddress && (
-                <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => upgrade()}>
-                  Upgrade
+                <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => upgrade()}>
+                  <div className="flex items-center">
+                    <ChevronDoubleUpIcon width={30} height={30} />
+                    <p className="ml-3">Upgrade</p>
+                  </div>
                 </li>
               )}
-              <li className="px-4 py-3 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>
-                Cancel
+              <li className="px-2 cursor-pointer hover:bg-gray-100" onClick={() => onClose()}>
+                <div className="flex items-center">
+                  <XMarkIcon width={30} height={30} />
+                  <p className="ml-3">Cancel</p>
+                </div>
               </li>
             </ul>
           </div>
